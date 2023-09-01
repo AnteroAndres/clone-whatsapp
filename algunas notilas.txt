@@ -1,0 +1,6 @@
+yarn dev --client
+yarn start -- server
+npx prisma studio
+npx prisma db push
+
+id y contra de postgres  : postgres/ admin
