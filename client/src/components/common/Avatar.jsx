@@ -1,7 +1,10 @@
 import Image from 'next/image';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FaCamera} from 'react-icons/fa';
 import ContextMenu from './ContextMenu';
+import PhotoPicker from './PhotoPicker';
+import PhotoLibrary from './PhotoLibrary';
+import CapturePhoto from './CapturePhoto';
 
 function Avatar({type, image, setImage}) {
   const [hover, setHover] = useState(false);
@@ -11,25 +14,65 @@ function Avatar({type, image, setImage}) {
     y: 0,
   });
 
-  const [grabPhoto, setGrabPhoto] = useState(false)
+  const [grabPhoto, setGrabPhoto] = useState(false);
+  const [showPhotoLibrary, setShowPhotoLibrary] = useState(false);
+  const [showCapturePhoto, setShowCapturePhoto] = useState(false);
   const showContextMenu = (e) => {
     e.preventDefault();
     setcontextMenuCordinates({x: e.pageX, y: e.pageY});
     setIsContextMenuVisible(true);
   };
 
+  useEffect(() => {
+    if (grabPhoto) {
+      const data = document.getElementById('photo-picker');
+      data.click();
+      document.body.onfocus = (e) => {
+        setTimeout(() => {
+          setGrabPhoto(false);
+        }, 1000);
+      };
+    }
+  }, [grabPhoto]);
   const contextMenuOptions = [
-    { name: "Take Photo", callback: ()=> {} },
-    { name: "Choose From Library", callback: ()=> {} },
-    { name: "Upload Photo", callback: ()=> {
-      setGrabPhoto(true);
-    } },
-    { name: "Remove Photo", callback: ()=> {
-      setImage("/default_avatar.png");
-    } },
+    {name: 'Take Photo', callback: () => {
+      setShowCapturePhoto(true);
+    }},
+    {
+      name: 'Choose From Library',
+      callback: () => {
+        setShowPhotoLibrary(true);
+      },
+    },
+    {
+      name: 'Upload Photo',
+      callback: () => {
+        setGrabPhoto(true);
+      },
+    },
+    {
+      name: 'Remove Photo',
+      callback: () => {
+        setImage('/default_avatar.png');
+      },
+    },
   ];
 
-  const photoPickerChange = () => {};
+  const photoPickerChange = async (e) => {
+    console.log(e);
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    console.log({file});
+    const data = document.createElement('img');
+    reader.onload = function (event) {
+      data.src = event.target.result;
+      data.setAttribute('data-src', event.target.result);
+    };
+    reader.readAsDataURL(file);
+    setTimeout(() => {
+      setImage(data.src);
+    }, 100);
+  };
   return (
     <>
       <div className="flex items-center justify-center">
@@ -70,12 +113,23 @@ function Avatar({type, image, setImage}) {
           </div>
         )}
       </div>
-      {isContextMenuVisible &&( 
+      {isContextMenuVisible && (
         <ContextMenu
-        options={contextMenuOptions}
-        cordinates={contextMenuCordinates}
-        contextMenu={isContextMenuVisible}
-        setContextMenu={setIsContextMenuVisible}
+          options={contextMenuOptions}
+          cordinates={contextMenuCordinates}
+          contextMenu={isContextMenuVisible}
+          setContextMenu={setIsContextMenuVisible}
+        />
+      )}
+      {
+        showCapturePhoto && <CapturePhoto
+        setImage={setImage} hide={setShowCapturePhoto}
+        />
+      }
+      {showPhotoLibrary && (
+        <PhotoLibrary
+          setImage={setImage}
+          hidePhotoLibrary={setShowPhotoLibrary}
         />
       )}
       {grabPhoto && <PhotoPicker onChange={photoPickerChange} />}
