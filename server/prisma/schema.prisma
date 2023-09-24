@@ -15,5 +15,4 @@ model User {
   name String
   profilePicture String @default("")
   about String @default("")
-
 }

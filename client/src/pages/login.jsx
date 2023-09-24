@@ -14,7 +14,6 @@ function login() {
   const [{userInfo, newUser}, dispatch] = useStateProvider();
 
   useEffect(() => {
-    
     if (userInfo?.id && !newUser) router.push('/');
   }, [userInfo, newUser]);
 
@@ -38,9 +37,9 @@ function login() {
               status: '',
             },
           });
-          router.push('/onboarding');
+          router.push("/");
         } else {
-          const {id, name, email, profilePicture: profileImage, status} = data;
+          const {id, name, email, profilePicture: profileImage, status} = data.data;
           dispatch({
             type: reducerCases.SET_USER_INFO,
             userInfo: {

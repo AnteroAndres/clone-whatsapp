@@ -11,9 +11,9 @@ export const checkUser = async (req, res, next) => {
         if(!user){
             return res.json({ msg:" User not found", status:false});
         }
-        // else{
-        //     return res.json({msg:"User Found", status:true, data: user});
-        // }
+        else{
+            return res.json({msg:"User Found", status:true, data: user});
+        }
     } catch (err) {
         next(err);
     }
@@ -25,11 +25,11 @@ export const onBoardUser = async (req,res,next) =>{
         if(!email || !name || !profilePicture){
             return res.send("Email, Name and Image are required.");
         }
-        const prisma = getPrismaaInstance();
+        const prisma = getPrismaInstance();
         await prisma.user.create({
             data: {email, name, about, profilePicture},
         });
-        return res.json({ msg:"Success", status:true});
+        return res.json({ msg:"Success", status:true, user});
     } catch (error) {
         next(error);
     }
