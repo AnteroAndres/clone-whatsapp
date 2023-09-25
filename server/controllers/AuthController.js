@@ -19,7 +19,7 @@ export const checkUser = async (req, res, next) => {
     }
 };
 
-export const onBoardUser = async (req,res,next) =>{
+export const onBoardUser = async (req,res,next) => {
     try {
         const { email, name, about, image: profilePicture } = req.body;
         if(!email || !name || !profilePicture){

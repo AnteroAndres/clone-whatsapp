@@ -73,6 +73,7 @@ function Avatar({type, image, setImage}) {
       setImage(data.src);
     }, 100);
   };
+
   return (
     <>
       <div className="flex items-center justify-center">

@@ -37,7 +37,7 @@ function login() {
               status: '',
             },
           });
-          router.push("/");
+          router.push("/onboarding");
         } else {
           const {id, name, email, profilePicture: profileImage, status} = data.data;
           dispatch({

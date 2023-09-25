@@ -5,6 +5,7 @@ import { ONBOARD_USER_ROUTE } from '@/utils/ApiRoutes';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 
 function onboarding() {
   const router = useRouter()
@@ -20,7 +21,7 @@ useEffect(()=>{
 
 const onboardUserHandler = async() => {
     if(validateDetails()){
-      const email = user.Info.email;
+      const email = userInfo.email;
       try {
         const { data } = await axios.post(ONBOARD_USER_ROUTE,{
           email,
@@ -40,7 +41,7 @@ const onboardUserHandler = async() => {
               status: about,
             },
           });
-         router.push("/");
+         router.push("/onboarding");
         }
       } catch (err) {
         console.log("Error during onboarding:", err);
