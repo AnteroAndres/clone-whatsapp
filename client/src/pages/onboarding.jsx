@@ -43,12 +43,12 @@ const onboardUserHandler = async() => {
          router.push("/");
         }
       } catch (err) {
-        console.log(err)
+        console.log("Error during onboarding:", err);
       }
     }
   };
 const validateDetails = () =>{
-if(name.lenght<3){
+if(name.length<3){
   return false
 }
 return true
