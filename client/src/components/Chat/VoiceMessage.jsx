@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-function VoiceMessage() {
-  return <div>VoiceMessage</div>;
+function VoiceMessage () {
+  return <div>VoiceMessage</div>
 }
 
-export default VoiceMessage;
+export default VoiceMessage

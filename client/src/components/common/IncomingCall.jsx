@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-function IncomingCall() {
-  return <div>IncomingCall</div>;
+function IncomingCall () {
+  return <div>IncomingCall</div>
 }
 
-export default IncomingCall;
+export default IncomingCall

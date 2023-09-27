@@ -1,34 +1,34 @@
-import {useStateProvider} from '@/context/StateContext';
-import {reducerCases} from '@/context/constants';
-import {GET_ALL_CONTACTS} from '@/utils/ApiRoutes';
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {BiArrowBack, BiSearchAlt2} from 'react-icons/bi';
-import ChatLIstItem from './ChatLIstItem';
+import { useStateProvider } from '@/context/StateContext'
+import { reducerCases } from '@/context/constants'
+import { GET_ALL_CONTACTS } from '@/utils/ApiRoutes'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { BiArrowBack, BiSearchAlt2 } from 'react-icons/bi'
+import ChatLIstItem from './ChatLIstItem'
 
-function ContactsList() {
-  const [allContacts, setAllContacts] = useState([]);
-  const [{}, dispatch] = useStateProvider();
+function ContactsList () {
+  const [allContacts, setAllContacts] = useState([])
+  const [, dispatch] = useStateProvider()
   useEffect(() => {
     const getContacts = async () => {
       try {
         const {
-          data: {users},
-        } = await axios.get(GET_ALL_CONTACTS);
-        setAllContacts(users);
+          data: { users }
+        } = await axios.get(GET_ALL_CONTACTS)
+        setAllContacts(users)
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
-    };
-    getContacts();
-  }, []);
+    }
+    getContacts()
+  }, [])
   return (
     <div className="h-full flex flex-col">
       <div className="h-24 flex items-end px-3 py-4">
         <div className="flex items-center gap-12 text-white">
           <BiArrowBack
             className="cursor-pointer text-xl"
-            onClick={() => dispatch({type: reducerCases.SET_ALL_CONTACTS_PAGE})}
+            onClick={() => dispatch({ type: reducerCases.SET_ALL_CONTACTS_PAGE })}
           />
           <span>New Chat</span>
         </div>
@@ -59,14 +59,14 @@ function ContactsList() {
                     isContactPage={true}
                     key={contact.id}
                   />
-                );
+                )
               })}
             </div>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
 
-export default ContactsList;
+export default ContactsList

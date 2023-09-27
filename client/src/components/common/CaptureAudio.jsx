@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-function CaptureAudio() {
-  return <div>CaptureAudio</div>;
+function CaptureAudio () {
+  return <div>CaptureAudio</div>
 }
 
-export default CaptureAudio;
+export default CaptureAudio

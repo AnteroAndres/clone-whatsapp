@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-function ChatGroupContainer() {
-  return <div>ChatGroupContainer</div>;
+function ChatGroupContainer () {
+  return <div>ChatGroupContainer</div>
 }
 
-export default ChatGroupContainer;
+export default ChatGroupContainer

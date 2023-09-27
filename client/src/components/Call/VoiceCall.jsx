@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-function VoiceCall() {
-  return <div>VoiceCall</div>;
+function VoiceCall () {
+  return <div>VoiceCall</div>
 }
 
-export default VoiceCall;
+export default VoiceCall
