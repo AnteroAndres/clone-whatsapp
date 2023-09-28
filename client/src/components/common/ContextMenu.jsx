@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react'
 
-function ContextMenu({options, cordinates, contextMenu, setContextMenu}) {
-  const contextMenuRef = useRef(null);
+function ContextMenu ({ options, cordinates, contextMenu, setContextMenu }) {
+  const contextMenuRef = useRef(null)
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -10,33 +10,33 @@ function ContextMenu({options, cordinates, contextMenu, setContextMenu}) {
           contextMenuRef.current &&
           !contextMenuRef.current.contains(event.target)
         ) {
-          setContextMenu(false);
+          setContextMenu(false)
         }
       }
-    };
-    document.addEventListener("click", handleOutsideClick);
-    return ()=>{
-      document.removeEventListener("click", handleOutsideClick);
     }
-  }, []);
+    document.addEventListener('click', handleOutsideClick)
+    return () => {
+      document.removeEventListener('click', handleOutsideClick)
+    }
+  }, [setContextMenu])
 
   const handleClick = (e, callback) => {
-    e.stopPropagation();
-    setContextMenu(false);
-    callback();
-  };
+    e.stopPropagation()
+    setContextMenu(false)
+    callback()
+  }
 
   return (
     <div
-      className={`bg-dropdown-background fixed py-2 z-[100] shadow-xl`}
+      className={'bg-dropdown-background fixed py-2 z-[100] shadow-xl'}
       ref={contextMenuRef}
       style={{
         top: cordinates.y,
-        left: cordinates.x,
+        left: cordinates.x
       }}
     >
       <ul>
-        {options.map(({name, callback}) => (
+        {options.map(({ name, callback }) => (
           <li
             key={name}
             onClick={(e) => handleClick(e, callback)}
@@ -47,7 +47,7 @@ function ContextMenu({options, cordinates, contextMenu, setContextMenu}) {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
-export default ContextMenu;
+export default ContextMenu

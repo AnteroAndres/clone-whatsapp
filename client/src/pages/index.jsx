@@ -1,8 +1,6 @@
-import Main from "@/components/Main";
-import React from "react";
+import Main from '@/components/Main'
+import React from 'react'
 
-function index() {
-  return <Main />;
+export default function IndexPage () {
+  return <Main />
 }
-
-export default index;

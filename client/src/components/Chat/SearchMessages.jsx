@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-function SearchMessages() {
-  return <div>SearchMessages</div>;
+function SearchMessages () {
+  return <div>SearchMessages</div>
 }
 
-export default SearchMessages;
+export default SearchMessages

@@ -1,0 +1,19 @@
+{
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.workingDirectories": ["./client", "./server"],
+  "cSpell.words": [
+    "Chatlist",
+    "cordinates",
+    "ecma",
+    "resizer",
+    "tailwindcss",
+    "Videocam",
+    "wavesurfer",
+    "webrtc",
+    "whatsapp",
+    "zego"
+  ]
+}

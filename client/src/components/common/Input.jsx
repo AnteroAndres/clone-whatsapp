@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-function Input({ name, state, setState, label = false }) {
+function Input ({ name, state, setState, label = false }) {
   return (
   <div className="flex gap-1 flex-col">
     {label && (
@@ -19,7 +19,7 @@ function Input({ name, state, setState, label = false }) {
     </div>
 
   </div>
-  );
+  )
 }
 
-export default Input;
+export default Input

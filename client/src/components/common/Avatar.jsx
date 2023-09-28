@@ -1,78 +1,81 @@
-import Image from 'next/image';
-import React, {useEffect, useState} from 'react';
-import {FaCamera} from 'react-icons/fa';
-import ContextMenu from './ContextMenu';
-import PhotoPicker from './PhotoPicker';
-import PhotoLibrary from './PhotoLibrary';
-import CapturePhoto from './CapturePhoto';
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
+import { FaCamera } from 'react-icons/fa'
+import ContextMenu from './ContextMenu'
+import PhotoPicker from './PhotoPicker'
+import PhotoLibrary from './PhotoLibrary'
+import CapturePhoto from './CapturePhoto'
 
-function Avatar({type, image, setImage}) {
-  const [hover, setHover] = useState(false);
-  const [isContextMenuVisible, setIsContextMenuVisible] = useState(false);
+function Avatar ({ type, image, setImage }) {
+  const [hover, setHover] = useState(false)
+  const [isContextMenuVisible, setIsContextMenuVisible] = useState(false)
   const [contextMenuCordinates, setcontextMenuCordinates] = useState({
     x: 0,
-    y: 0,
-  });
+    y: 0
+  })
 
-  const [grabPhoto, setGrabPhoto] = useState(false);
-  const [showPhotoLibrary, setShowPhotoLibrary] = useState(false);
-  const [showCapturePhoto, setShowCapturePhoto] = useState(false);
+  const [grabPhoto, setGrabPhoto] = useState(false)
+  const [showPhotoLibrary, setShowPhotoLibrary] = useState(false)
+  const [showCapturePhoto, setShowCapturePhoto] = useState(false)
   const showContextMenu = (e) => {
-    e.preventDefault();
-    setcontextMenuCordinates({x: e.pageX, y: e.pageY});
-    setIsContextMenuVisible(true);
-  };
+    e.preventDefault()
+    setcontextMenuCordinates({ x: e.pageX, y: e.pageY })
+    setIsContextMenuVisible(true)
+  }
 
   useEffect(() => {
     if (grabPhoto) {
-      const data = document.getElementById('photo-picker');
-      data.click();
+      const data = document.getElementById('photo-picker')
+      data.click()
       document.body.onfocus = (e) => {
         setTimeout(() => {
-          setGrabPhoto(false);
-        }, 1000);
-      };
+          setGrabPhoto(false)
+        }, 1000)
+      }
     }
-  }, [grabPhoto]);
+  }, [grabPhoto])
   const contextMenuOptions = [
-    {name: 'Take Photo', callback: () => {
-      setShowCapturePhoto(true);
-    }},
+    {
+      name: 'Take Photo',
+      callback: () => {
+        setShowCapturePhoto(true)
+      }
+    },
     {
       name: 'Choose From Library',
       callback: () => {
-        setShowPhotoLibrary(true);
-      },
+        setShowPhotoLibrary(true)
+      }
     },
     {
       name: 'Upload Photo',
       callback: () => {
-        setGrabPhoto(true);
-      },
+        setGrabPhoto(true)
+      }
     },
     {
       name: 'Remove Photo',
       callback: () => {
-        setImage('/default_avatar.png');
-      },
-    },
-  ];
+        setImage('/default_avatar.png')
+      }
+    }
+  ]
 
   const photoPickerChange = async (e) => {
-    console.log(e);
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    console.log({file});
-    const data = document.createElement('img');
+    console.log(e)
+    const file = e.target.files[0]
+    const reader = new FileReader()
+    console.log({ file })
+    const data = document.createElement('img')
     reader.onload = function (event) {
-      data.src = event.target.result;
-      data.setAttribute('data-src', event.target.result);
-    };
-    reader.readAsDataURL(file);
+      data.src = event.target.result
+      data.setAttribute('data-src', event.target.result)
+    }
+    reader.readAsDataURL(file)
     setTimeout(() => {
-      setImage(data.src);
-    }, 100);
-  };
+      setImage(data.src)
+    }, 100)
+  }
 
   return (
     <>
@@ -135,7 +138,7 @@ function Avatar({type, image, setImage}) {
       )}
       {grabPhoto && <PhotoPicker onChange={photoPickerChange} />}
     </>
-  );
+  )
 }
 
-export default Avatar;
+export default Avatar

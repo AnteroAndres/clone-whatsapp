@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-function ImageMessage() {
-  return <div>ImageMessage</div>;
+function ImageMessage () {
+  return <div>ImageMessage</div>
 }
 
-export default ImageMessage;
+export default ImageMessage
