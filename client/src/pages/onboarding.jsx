@@ -3,10 +3,11 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Avatar from '@/components/common/Avatar'
-import Input from '@/components/common/Input'
+
 import { useStateProvider } from '@/context/StateContext'
 import { ONBOARD_USER_ROUTE } from '@/utils/ApiRoutes'
 import { reducerCases } from '@/context/constants'
+import Input from '@/components/common/Input'
 
 export default function OnboardingPage () {
   const router = useRouter()
