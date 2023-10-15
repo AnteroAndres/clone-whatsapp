@@ -15,6 +15,7 @@ function Main () {
   const router = useRouter()
   const [{ userInfo, currentChatUser }, dispatch] = useStateProvider()
   const [redirectLogin, setRedirectLogin] = useState(false)
+  const [socketEvent, setsocketEvent] = useState(false)
   const socket = useRef()
 
   useEffect(() => {
@@ -50,15 +51,35 @@ function Main () {
     if (userInfo) {
       socket.current = io(HOST)
       socket.current.emit('add-user', userInfo.id)
+      dispatch({ type: reducerCases.SET_SOCKET, socket })
     }
   }, [userInfo])
+
+  useEffect(() => {
+    if (socket.current && !socketEvent) {
+      socket.current.on('msg-recieve', (data) => {
+        dispatch({
+          type: reducerCases.ADD_MESSAGE,
+          newMessage: {
+            ...data.message
+          }
+        })
+      })
+      setsocketEvent(true)
+    }
+  }, [socket.current])
+
   useEffect(() => {
     const getMessages = async () => {
-      const { data: { messages } } = await axios.get(`${GET_MESSAGES_ROUTE}/${userInfo?.id}/${currentChatUser?.id}`)
+      const {
+        data: { messages }
+      } = await axios.get(
+        `${GET_MESSAGES_ROUTE}/${userInfo?.id}/${currentChatUser?.id}`
+      )
       dispatch({ type: reducerCases.SET_MESSAGES, messages })
     }
     if (currentChatUser?.id && userInfo?.id) { getMessages() }
-  }, [currentChatUser, userInfo])
+  }, [currentChatUser])
   return (
     <>
       <div className="grid grid-cols-main h-screen w-screen max-h-screen max-w-full over">

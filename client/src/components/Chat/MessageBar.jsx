@@ -5,9 +5,10 @@ import { BsEmojiSmile } from 'react-icons/bs'
 import { ImAttachment } from 'react-icons/im'
 import axios from 'axios'
 import { MdSend } from 'react-icons/md'
+import { reducerCases } from '@/context/constants'
 
 function MessageBar () {
-  const [{ userInfo, currentChatUser }, dispatch] = useStateProvider()
+  const [{ userInfo, currentChatUser, socket }, dispatch] = useStateProvider()
   const [message, setMessage] = useState('')
   const sendMessage = async () => {
     try {
@@ -15,6 +16,18 @@ function MessageBar () {
         to: currentChatUser?.id,
         from: userInfo?.id,
         message
+      })
+      socket.current.emit('send-msg', {
+        to: currentChatUser?.id,
+        from: userInfo?.id,
+        message: data.message
+      })
+      dispatch({
+        type: reducerCases.ADD_MESSAGE,
+        newMessage: {
+          ...data.message
+        },
+        fromSelf: true
       })
       setMessage('')
     } catch (error) {
