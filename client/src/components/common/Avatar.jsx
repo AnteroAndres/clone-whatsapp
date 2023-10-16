@@ -34,6 +34,7 @@ function Avatar ({ type, image, setImage }) {
       }
     }
   }, [grabPhoto])
+
   const contextMenuOptions = [
     {
       name: 'Take Photo',
