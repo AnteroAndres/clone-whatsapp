@@ -16,7 +16,7 @@ function ChatContainer () {
           {messages && messages.map((message, index) => (
             <div
               key={message.id}
-              className={`${message.senderId === currentChatUser.id
+              className={`flex ${message.senderId === currentChatUser.id
                   ? 'justify-start'
                   : 'justify-end'}`}>
               {message.type === 'text' && (
