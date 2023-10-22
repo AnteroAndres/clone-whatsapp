@@ -6,8 +6,13 @@ import EmojiPicker from 'emoji-picker-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { BsEmojiSmile } from 'react-icons/bs'
 import { ImAttachment } from 'react-icons/im'
+import { FaMicrophone } from 'react-icons/fa'
 import { MdSend } from 'react-icons/md'
 import PhotoPicker from '../common/PhotoPicker'
+import dynamic from 'next/dynamic'
+const CaptureAudio = dynamic(() => import('../common/CaptureAudio'), {
+  ssr: false
+})
 
 function MessageBar () {
   const [{ userInfo, currentChatUser, socket }, dispatch] = useStateProvider()
@@ -15,6 +20,7 @@ function MessageBar () {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const emojiPickerRef = useRef(null)
   const [grabPhoto, setGrabPhoto] = useState(false)
+  const [showAudioRecorder, setShowAudioRecorder] = useState(false)
 
   const photoPickerChange = async (e) => {
     try {
@@ -45,7 +51,7 @@ function MessageBar () {
         })
       }
     } catch (error) {
-
+      console.log(error)
     }
   }
 
@@ -109,6 +115,8 @@ function MessageBar () {
 
   return (
     <div className=" bg-panel-header-background h-20 px-4 flex items-center gap-6 relative">
+      {
+        !showAudioRecorder && (
       <>
         <div className="flex gap-6">
           <BsEmojiSmile
@@ -138,15 +146,28 @@ function MessageBar () {
         </div>
         <div className="flex w-10 items-center justify-center">
           <button>
-            <MdSend
+          {
+            message.length
+              ? (<MdSend
             className="text-panel-header-icon cursor-pointer text-xl"
             title="Send message"
             onClick={sendMessage}
             />
+                )
+              : (<FaMicrophone className="text-panel-header-icon cursor-pointer text-xl"
+            tittle="Record"
+            onClick={() => setShowAudioRecorder(true)}
+            />
+                )}
           </button>
         </div>
+
       </>
+        )}
       {grabPhoto && <PhotoPicker onChange={photoPickerChange} />}
+      {
+        showAudioRecorder && <CaptureAudio hide={setShowAudioRecorder}/>
+      }
     </div>
   )
 }
