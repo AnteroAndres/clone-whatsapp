@@ -14,7 +14,7 @@ import SearchMessages from './Chat/SearchMessages'
 
 function Main () {
   const router = useRouter()
-  const [{ userInfo, currentChatUser, messageSearch }, dispatch] = useStateProvider()
+  const [{ userInfo, currentChatUser, messagesSearch }, dispatch] = useStateProvider()
   const [redirectLogin, setRedirectLogin] = useState(false)
   const [socketEvent, setsocketEvent] = useState(false)
   const socket = useRef()
@@ -88,9 +88,9 @@ function Main () {
       <div className="grid grid-cols-main h-screen w-screen max-h-screen max-w-full over">
         <ChatList />
         {currentChatUser
-          ? (<div className={messageSearch ? 'grid grid-cols-2' : 'grid-cols' - 2}>
+          ? (<div className={messagesSearch ? 'grid grid-cols-2' : 'grid-cols-2'}>
             <Chat />
-            {messageSearch && <SearchMessages />}
+            {messagesSearch && <SearchMessages />}
           </div>
             )
           : (<Empty />

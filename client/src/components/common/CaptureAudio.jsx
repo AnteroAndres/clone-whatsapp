@@ -18,6 +18,7 @@ function CaptureAudio ({ hide }) {
   const [totalDuration, setTotalDuration] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [renderedAudio, setRenderedAudio] = useState(null)
+  const [recordedAudioFile, setRecordedAudioFile] = useState(null)
 
   const audioRef = useRef(null)
   const mediaRecorderRed = useRef(null)
@@ -88,9 +89,6 @@ function CaptureAudio ({ hide }) {
 
   const handleStopRecording = () => {
     if (mediaRecorderRed.current && isRecording) {
-      mediaRecorderRed.current.stop()
-      setIsRecording(false)
-      waveform.stop()
       const audioChunks = []
       mediaRecorderRed.current.addEventListener('dataavailable', (event) => {
         audioChunks.push(event.data)
@@ -98,8 +96,11 @@ function CaptureAudio ({ hide }) {
       mediaRecorderRed.current.addEventListener('stop', () => {
         const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' })
         const audioFile = new File([audioBlob], 'recording.mp3')
-        setRecordedAudio(audioFile)
+        setRecordedAudioFile(audioFile)
       })
+      mediaRecorderRed.current.stop()
+      setIsRecording(false)
+      waveform.stop()
     }
   }
 
@@ -133,7 +134,7 @@ function CaptureAudio ({ hide }) {
   const sendRecording = async () => {
     try {
       const formData = new FormData()
-      formData.append('audio', renderedAudio)
+      formData.append('audio', recordedAudioFile)
       const response = await axios.post(ADD_AUDIO_MESSAGE_ROUTE, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -156,6 +157,7 @@ function CaptureAudio ({ hide }) {
           },
           fromSelf: true
         })
+        setRenderedAudio(null)
       }
     } catch (error) {
       console.log(error)

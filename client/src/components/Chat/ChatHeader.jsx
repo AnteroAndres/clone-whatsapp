@@ -11,7 +11,7 @@ function ChatHeader () {
   const [{ currentChatUser }, dispatch] = useStateProvider()
   return (
     <div className="h-16 px-4 py-3 flex justify-between items-center bg-panel-header-background z-10">
-      <div className=" flex items-center justify-center gap-6">
+      <div className="flex items-center justify-center gap-6">
         <Avatar type="sm" image={currentChatUser?.profilePicture} />
         <div className="flex flex-col">
           <span className="text-primary-strong">{currentChatUser?.name}</span>
@@ -19,11 +19,11 @@ function ChatHeader () {
         </div>
       </div>
       <div className="flex gap-6">
-        <MdCall className="text-panel-header-icon cursor pointer text-xl" />
-        <IoVideocam className="text-panel-header-icon cursor pointer text-xl" />
-        <BiSearchAlt2 className="text-panel-header-icon cursor pointer text-xl"
+        <MdCall className="text-panel-header-icon cursor-pointer text-xl" />
+        <IoVideocam className="text-panel-header-icon cursor-pointer text-xl" />
+        <BiSearchAlt2 className="text-panel-header-icon cursor-pointer text-xl"
         onClick={() => dispatch({ type: reducerCases.SET_MESSAGE_SEARCH })}/>
-        <BsThreeDotsVertical className="text-panel-header-icon cursor pointer text-xl" />
+        <BsThreeDotsVertical className="text-panel-header-icon cursor-pointer text-xl" />
       </div>
     </div>
   )

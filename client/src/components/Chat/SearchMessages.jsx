@@ -12,12 +12,12 @@ function SearchMessages () {
 
   useEffect(() => {
     if (searchTerm) {
-      setSearchedMessages(messages.filter(message => message.message.type === 'text' && message.message.includes(searchTerm)))
+      setSearchedMessages(messages.filter(message => message.type === 'text' && message.message.includes(searchTerm)))
     } else {
       setSearchedMessages([])
     }
   }, [searchTerm])
-  return <div className="border-conversation-border border-l w-full bg-conversation-panel-background">
+  return <div className="border-conversation-border border-l w-full bg-conversation-panel-background flex flex-col z-10 max-h-screen">
     <div className="h-16 px-4 py-5 flex gap-10 items-center bg-panel-header-background text-primary-strong">
       <IoClose className="cursor-pointer text-icon-lighter text-2xl"
         onClick={() => dispatch({ type: reducerCases.SET_MESSAGE_SEARCH })}
@@ -57,7 +57,9 @@ function SearchMessages () {
           {searchedMessages.map((message) => (
             <div
               key={message.id}
-              className="flex cursor-pointer flex-col justify-center hover:bg-background-default-hover w-full px-5 border-b-[0.1px] border-secondary py-5"
+              className="flex cursor-pointer flex-col justify-center
+               hover:bg-background-default-hover w-full px-5 border-b-[0.1px]
+              border-secondary py-5"
             >
               <div className="text-sm text-secondary">
                 {calculateTime(message.createdAt)}
