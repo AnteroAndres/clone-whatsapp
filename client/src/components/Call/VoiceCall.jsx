@@ -8,19 +8,19 @@ function VoiceCall () {
   const [{ VoiceCall, socket, userInfo }] = useStateProvider()
 
   useEffect(() => {
-    if (voiceCall.type === 'out-going') {
+    if (VoiceCall && VoiceCall.callType === 'out-going') {
       socket.current.emit('outgoing-voice-call', {
-        to: voiceCall.id,
+        to: VoiceCall.id,
         from: {
           id: userInfo.id,
-          profilePicture: userInfo.profilePicture,
+          profilePicture: userInfo.profileImage,
           name: userInfo.name
         },
-        callType: voiceCall.callType,
-        roomId: voiceCall.roomId
+        callType: VoiceCall.callType,
+        roomId: VoiceCall.roomId
       })
     }
-  }, [voiceCall])
+  }, [VoiceCall])
 
   return <Container data={VoiceCall} />
 }
